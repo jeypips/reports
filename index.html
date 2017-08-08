@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Reports</title>
+</head>
+
+<body ng-app="report" ng-controller="reportCtrl">
+	<label>Gender:</label>
+	<select ng-model="filter.employee_gender">
+		<option value="Male">Male</option>
+		<option value="Female">Female</option>
+	</select>
+	<label>Civil Status:</label>
+	<select ng-model="filter.employee_civil_status">
+		<option value="Single">Single</option>
+		<option value="Married">Married</option>
+	</select>
+	<label>Birth Place:</label>
+	<select ng-model="filter.employee_birthplace" ng-options="birthplace for birthplace in birthplaces"></select>
+	<button type="submit" ng-click="filterReport(this)">Go!</button>
+</body>
+<form id="filter_report" action="reports/template.php" method="post" target="_blank">
+	<input type="hidden" name="params" value="{{filter}}">
+</form>
+<script type="text/javascript" src="jquery/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="angularjs/angular.min.js"></script>
+<script type="text/javascript">
+
+	var app = angular.module('report',[]);
+	
+	app.controller('reportCtrl',function($scope) {
+
+		$scope.birthplaces = ["SUDIPEN, LA UNION","BAUANG, LA UNION"];
+		
+		$scope.filter = {
+			employee_gender: 'Male',
+			employee_civil_status: 'Single',
+			employee_birthplace: ''
+		};
+		
+		$scope.filterReport = function(scope) {
+			
+			$('#filter_report').submit();
+			
+		};
+		
+	});
+
+</script>
+
+</html>
